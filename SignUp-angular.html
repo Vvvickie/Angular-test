@@ -9,14 +9,24 @@
             height: 200px;
             margin: 100px auto;
         }
+
+        div {
+            width: 100%;
+        }
+        div input{
+            width: 66px;
+            height: 22px;
+            margin: 0 auto;
+            display:block;
+        }
     </style>
     <script src="node_modules/angular/angular.min.js"></script>
 </head>
-<body ng-app>
-    <table>
+<body>
+    <table ng-app="myApp" ng-controller="myController">
         <tr>
             <td>姓名</td>
-            <td><input type="text" ng-model="name"></td>
+            <td><input type="text" ng-model="user.name"></td>
         </tr>
         <tr>
             <td>密码</td>
@@ -24,8 +34,29 @@
         </tr>
         <tr>
             <td>Hello</td>
-            <td>{{name}}</td>
+            <td>{{user.name}}</td>
         </tr>
     </table>
+    
+    <div ng-app="myApp2" ng-controller="myController2">
+        <input type="button" value="myApp2" ng-click="do2()">
+    </div>
+    <script>
+        var myApp = angular.module('myApp',[]);
+        myApp.controller('myController',['$scope',function ($scope) {
+            $scope.user={
+                name:'ww'
+            }
+        }]);
+        
+        var myApp2 = angular.module('myApp2',[]);
+        myApp2.controller('myController2',['$scope',function ($scope) {
+            $scope.do2 = function () {
+                console.log('hello,world');
+            }
+        }]);
+
+        angular.bootstrap(document.querySelector('[ng-app="myApp2"]'),['myApp2'])
+    </script>
 </body>
 </html>
